@@ -14,4 +14,5 @@ http://localhost:8080/hello-world/path-variable/kuku
 Delete: http://localhost:8080/users/6
 Post    http://localhost:8080/users
 
-http://localhost:8080/swagger-ui/index.html 
+http://localhost:8080/swagger-ui/index.html
+http://localhost:8080/v3/api-docs
