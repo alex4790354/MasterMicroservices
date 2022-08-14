@@ -4,17 +4,15 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import java.net.URI;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -22,6 +20,9 @@ import javax.validation.Valid;
 
 @RestController
 public class UserResourceController {
+
+	@Autowired
+	private MessageSource messageSource;
 
 	@Autowired
 	private UserDaoService service;
@@ -77,6 +78,15 @@ public class UserResourceController {
 		
 		return ResponseEntity.created(location).build();
 	}
-	
-	
+
+
+	@GetMapping(path = "/hello-world-internationalized")
+	public String helloWorldInternationalized(
+		//	@RequestHeader(name="Accept-Language", required=false) Locale locale
+		) {
+
+		return messageSource.getMessage("good.morning.message", null, "Default 'Hi There'", // locale
+				LocaleContextHolder.getLocale());
+	}
+
 }
